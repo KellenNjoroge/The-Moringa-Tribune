@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Editors(models.Model):
+class Editor(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     email = models.EmailField()
@@ -9,8 +9,11 @@ class Editors(models.Model):
     def __str__(self):
         return self.first_name
 
-    class Meta:
-        ordering = ['first_name']
+    # class Meta:
+    #     ordering = ['first_name']
+
+    def save_editor(self):
+        self.save()
 
 
 class Tags(models.Model):
@@ -23,6 +26,6 @@ class Tags(models.Model):
 class Article(models.Model):
     title = models.CharField(max_length=60)
     post = models.TextField()
-    editor = models.ForeignKey(Editors)
+    editor = models.ForeignKey(Editor)
     tags = models.ManyToManyField(Tags)
     pub_date = models.DateTimeField(auto_now_add=True)
